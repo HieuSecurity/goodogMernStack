@@ -7,40 +7,63 @@ function App() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [count, setCount] = useState(0);
-
+  const [stateButton, setStateButton] = useState("Đăng Ký");
+  const [updateid, setupdateid] = useState(0);
   const Ref = useRef(null);
   useEffect(() => {
     Ref.current.focus();
     axios
       .get("https://frontend-ie8t.onrender.com/api/data")
       .then((response) => {
-        console.log(`call api again`);
         setdataUser(response.data);
       })
-      .catch((response) => {
-        console.log(`error call API`);
-      });
+      .catch((response) => {});
   }, [count]);
+
   const handlePost = async () => {
-    axios
-      .post("https://frontend-ie8t.onrender.com/post/data", {
-        username,
-        email,
-        password,
-      })
-      .then(() => {
-        console.log(`posst`);
-        setCount((pre) => {
-          return pre + 1;
+    if (stateButton === "Đăng Ký") {
+      axios
+        .post("https://frontend-ie8t.onrender.com/post/data", {
+          username,
+          email,
+          password,
+        })
+        .then(() => {
+          console.log(`posst`);
+          setCount((pre) => {
+            return pre + 1;
+          });
+        })
+        .catch((error) => {
+          console.error("Lỗi khi gửi dữ liệu:", error);
         });
-      })
-      .catch((error) => {
-        console.error("Lỗi khi gửi dữ liệu:", error);
-      });
-    Ref.current.focus();
-    setUsername("");
-    setemail("");
-    setpassword("");
+      Ref.current.focus();
+      setUsername("");
+      setemail("");
+      setpassword("");
+    } else {
+      try {
+        axios
+          .put(`https://frontend-ie8t.onrender.com/api/update/${updateid} `, {
+            username,
+            email,
+            password,
+          })
+          .then(() => {
+            Ref.current.focus();
+            setUsername("");
+            setemail("");
+            setpassword("");
+            console.log(`update`);
+            setCount((pre) => {
+              return pre + 1;
+            });
+            setStateButton("Đăng Ký");
+          });
+      } catch (err) {
+        console.log(`error deleting`);
+      }
+    }
   };
   const handleDelete = async (id) => {
     try {
@@ -57,6 +80,13 @@ function App() {
     }
   };
 
+  const handleUpdate = (id, data) => {
+    setStateButton("Cập Nhật");
+    Ref.current.focus();
+    setUsername(data.username);
+    setemail(data.email);
+    setpassword(data.password);
+  };
   return (
     <div className="App">
       <div className="wrap-input">
@@ -84,7 +114,7 @@ function App() {
             }
           }}
         />
-        <button onClick={handlePost}>Đăng Ký</button>
+        <button onClick={handlePost}>{stateButton}</button>
       </div>
 
       <p>Tài khoản của người dùng của Hiếu Hacker lỏ</p>
@@ -102,6 +132,15 @@ function App() {
                 }}
               >
                 Xóa
+              </button>
+              <button
+                className="update"
+                onClick={() => {
+                  handleUpdate(data._id, data);
+                  setupdateid(data._id);
+                }}
+              >
+                Cập Nhật
               </button>
             </div>
           </div>
