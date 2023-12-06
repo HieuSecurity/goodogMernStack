@@ -55,23 +55,7 @@ app.delete("/api/delete/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-app.put("/api/update/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const updatedtem = await User.findByIdAndDelete(id, {
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
-    if (updatedtem) {
-      res.status(200).send("Successfully updated");
-    } else {
-      res.status(404).json({ error: "Item not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+
 app.put("/api/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
