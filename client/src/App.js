@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     Ref.current.focus();
     axios
-      .get("http://localhost:3000/api/data")
+      .get("https://frontend-ie8t.onrender.com/api/data")
       .then((response) => {
         console.log(`call api again`);
         setdataUser(response.data);
@@ -23,7 +23,7 @@ function App() {
   }, [count]);
   const handlePost = async () => {
     axios
-      .post("http://localhost:3000/post/data", {
+      .post("https://frontend-ie8t.onrender.com/post/data", {
         username,
         email,
         password,
@@ -44,12 +44,14 @@ function App() {
   };
   const handleDelete = async (id) => {
     try {
-      axios.delete(`http://localhost:3000/api/delete/${id}`).then(() => {
-        console.log(`deleted ${id}`);
-        setCount((pre) => {
-          return pre + 1;
+      axios
+        .delete(`https://frontend-ie8t.onrender.com/api/delete/${id}`)
+        .then(() => {
+          console.log(`deleted ${id}`);
+          setCount((pre) => {
+            return pre + 1;
+          });
         });
-      });
     } catch (err) {
       console.log(`error deleting`);
     }
