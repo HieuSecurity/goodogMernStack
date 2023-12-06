@@ -10,16 +10,21 @@ function App() {
   const [stateButton, setStateButton] = useState("Đăng Ký");
   const [updateid, setupdateid] = useState(0);
   const Ref = useRef(null);
+
+  console.log(dataUser);
   useEffect(() => {
     Ref.current.focus();
     axios
       .get("https://frontend-ie8t.onrender.com/api/data")
       .then((response) => {
+        console.log(`call api again`);
         setdataUser(response.data);
       })
-      .catch((response) => {});
+      .catch((response) => {
+        console.log(`error call API`);
+      });
   }, [count]);
-
+  console.log(username, email, password);
   const handlePost = async () => {
     if (stateButton === "Đăng Ký") {
       axios
@@ -44,7 +49,7 @@ function App() {
     } else {
       try {
         axios
-          .put(`https://frontend-ie8t.onrender.com/api/update/${updateid} `, {
+          .put(`https://frontend-ie8t.onrender.com/api/update/${updateid}`, {
             username,
             email,
             password,
@@ -82,10 +87,11 @@ function App() {
 
   const handleUpdate = (id, data) => {
     setStateButton("Cập Nhật");
-    Ref.current.focus();
     setUsername(data.username);
     setemail(data.email);
     setpassword(data.password);
+    Ref.current.focus();
+    console.log(id);
   };
   return (
     <div className="App">
