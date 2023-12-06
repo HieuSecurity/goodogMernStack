@@ -87,7 +87,7 @@ function App() {
         <button onClick={handlePost}>Đăng Ký</button>
       </div>
 
-      <p>My account of Users</p>
+      <p>Tài khoản của người dùng của Hiếu Hacker lỏ</p>
       {dataUser.map((data) => {
         return (
           <div className="wrap" key={data._id}>
