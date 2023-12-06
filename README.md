@@ -1,1 +1,1 @@
-Mình là Hiếu , mình đang học information secutiy at POST ADN TELECOMMUNICATION INSTUTITE OF TECHNOLOGY 
+Mình là Hiếu , mình đang học tHọc Viện Công Nghệ Bưu Chính Viễn Thông ( PTIT ) .
