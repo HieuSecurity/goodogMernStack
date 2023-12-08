@@ -14,6 +14,9 @@ function App() {
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {
+    setQuery("");
+    Ref.current.focus();
+
     try {
       const response = await fetch(
         `https://frontend-ie8t.onrender.com/api/users?query=${query}`
@@ -24,7 +27,6 @@ function App() {
       console.error("Error fetching data:", error);
     }
   };
-  console.log(dataUser);
   useEffect(() => {
     Ref.current.focus();
     axios
@@ -170,6 +172,7 @@ function App() {
         type="text"
         placeholder="Nhập tên để tìm kiếm người dùng"
         value={query}
+        ref={Ref}
         onChange={(e) => setQuery(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === "Enter") {
