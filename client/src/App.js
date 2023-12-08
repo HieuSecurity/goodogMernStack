@@ -12,9 +12,8 @@ function App() {
   const Ref = useRef(null);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-
+  const valueQuery = query;
   const handleSearch = async () => {
-    setQuery("");
     Ref.current.focus();
 
     try {
@@ -39,7 +38,6 @@ function App() {
         console.log(`error call API`);
       });
   }, [count]);
-  console.log(username, email, password);
   const handlePost = async () => {
     if (stateButton === "Đăng Ký") {
       axios
@@ -181,7 +179,7 @@ function App() {
         }}
       />
       <button onClick={handleSearch}>Search</button>
-      <p>Tìm Kiếm User : {query} </p>
+      <p>Tìm Kiếm User : {valueQuery} </p>
       {results.map((data) => {
         return (
           <div className="wrap wrap-search" key={data._id}>
