@@ -24,6 +24,15 @@ app.get("/api/data", async (req, res) => {
   const data = await User.find({});
   res.status(200).json(data);
 });
+app.get("/api/users", async (req, res) => {
+  const { query } = req.query;
+  const data = await User.find({ username: query });
+  res.status(200).json(data);
+});
+app.get("/data", async (req, res) => {
+  const data = await User.find({}, { username: 1 });
+  res.status(200).json(data);
+});
 app.post("/post/data", async (req, res) => {
   try {
     // Lấy thông tin người dùng từ request body
@@ -73,6 +82,7 @@ app.put("/api/update/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 app.get("/", (req, res) => {
   res.send(`Server is running `);
 });

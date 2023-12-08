@@ -10,12 +10,25 @@ function App() {
   const [stateButton, setStateButton] = useState("Đăng Ký");
   const [updateid, setupdateid] = useState(0);
   const Ref = useRef(null);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
 
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(
+        `https://frontend-ie8t.onrender.com/api/users?query=${query}`
+      );
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   console.log(dataUser);
   useEffect(() => {
     Ref.current.focus();
     axios
-      .get("https://frontend-ie8t.onrender.com/api/data")
+      .get("http://localhost:3000/api/data")
       .then((response) => {
         console.log(`call api again`);
         setdataUser(response.data);
@@ -149,6 +162,24 @@ function App() {
                 Cập Nhật
               </button>
             </div>
+          </div>
+        );
+      })}
+
+      <input
+        type="text"
+        placeholder="Nhập tên để tìm kiếm người dùng"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
+      <p>Tìm Kiếm User : {query} </p>
+      {results.map((data) => {
+        return (
+          <div className="wrap wrap-search" key={data._id}>
+            <li>Username : {data.username}</li>
+            <li>Email : {data.email}</li>
+            <li>Password : {data.password}</li>
           </div>
         );
       })}

@@ -37,6 +37,10 @@ li {
   margin: 20px;
   background-color: bisque;
 }
+.wrap-search {
+  margin: 20px;
+  background-color: beige;
+}
 p {
   font-size: 50px;
   font-weight: 700;
