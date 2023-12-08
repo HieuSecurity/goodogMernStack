@@ -171,6 +171,11 @@ function App() {
         placeholder="Nhập tên để tìm kiếm người dùng"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        }}
       />
       <button onClick={handleSearch}>Search</button>
       <p>Tìm Kiếm User : {query} </p>
