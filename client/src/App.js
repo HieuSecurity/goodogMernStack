@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     Ref.current.focus();
     axios
-      .get("http://localhost:3000/api/data")
+      .get("https://frontend-ie8t.onrender.com/api/data")
       .then((response) => {
         console.log(`call api again`);
         setdataUser(response.data);
